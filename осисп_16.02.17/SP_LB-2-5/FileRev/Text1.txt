@@ -1,0 +1,170 @@
+if ((IpszCmdLineT == NULL) 1 1 (-^рэгОт^шеТ == 0)) {
+// Если пробелов больше не найдено, значит аргументов
+// после имени исполняемого файла не указано.
+// Сообщаем об ошибке.
+MessageBox( NULL,
+
+__TEXT("You must enter a filename on")
+__TEXT("the command line."),
+__TEXT("FileRev"), MB_OK);
+return(O);
+}
+
+// Копируем входной файл в FILEREV.DAT. чтобы ничего не испортить.
+// Здесь нужно пользоваться функцией GetCommandLine, а не параметром
+// lpszCmdLine. так как он всегда передается в WinMain как ANSI-строка.
+if (!CopyFile(lpszCmdLineT, FILENAME, FALSE)) {
+// Копирование не удалось
+MessageBox( NULL,
+
+__TEXT("New file could not be created."),
+__TEXT("FileRev"), MB_OK);
+return (0):
+}
+
+// Открываем файл для чтения и записи
+
+hFile = CreateFile(FILENAME, GENERIC_WRITE I GENERIC_READ,
+0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL):
+
+if (hFile == INVALID_HANDLE_VALUE) {
+// Открыть файл не удалось
+MessageBox(NULL, __TEXT("File could not be opened."),
+
+__TEXT("FileRev"), MB_OK);
+return(O);
+
+}
+
+// Узнаем размер файла. В программе предполагается, что
+// файл меньше 4 Гб.
+dwFileSize = GetFileSize(hFile. NULL):
+
+// Создаем объект "проецируемый файл". Он - на байт больше, чем
+// размер файла, чтобы можно было записать в конец строки (файла)
+// нулевой символ. Поскольку пока еще неизвестно: содержит ли файл
+// ANSI- или Unicode-символы, я предполагаю худшее и добавляю
+// размер WCHAR вместо CHAR.
+
+hFileMap = CreateFileMapping(hFile, NULL, PAGE_READWRITE,
+0, dwFileSize+sizeof(WCHAR), NULL);
+
+if (hFileMap == NULL) {
+
+// Открыть объект "проецируемый файл" не удалось
+MessageBox(NULL, __TEXT("File map could not be opened."),
+
+__TEXT("FileRev"), MB_OK):
+CloseHandle(hFile);
+return (0);
+
+}
+
+// Получаем адрес, по которому проецируется в память
+// первый байт файла
+lpvFile = MapViewOfFile(hFileMap, FILE_MAP_WRITE. 0. 0, 0);
+
+if (lpvFile == NULL) {
+
+// Спроецировать оконное представление файла не удалось
+MessageBox(NULL, __TEXT("Could   not map view of tile."),
+
+__TEXT("FileRev"), MB_OK);
+CloseHandle (hFileMap);
+CloseHandle(hFile);
+return(O);
+}
+
+// Если мы работаем не в Windows NT 3.10, проверим:
+
+// содержит ли файл текст в Unicode-кодировке: иначе считаем,
+// что он в ANSI-кодировке
+if (LOWORD(GetVersion()) !=0x0A03) {
+
+// Делаем взвешенное предположение о том, в какой кодировке
+// содержится в файле текст: ANSI или Unicode
+fIsTextUnicode = IsTextUnicode(lpvFile, dwFileSize, NULL);
+}
+
+if (!fIsTextUnicode) {
+
+// При дальнейших операциях с файлами явно используем
+// вместо Unicode-функций ANSI-функции, так как
+// приложение обрабатывает ANSI-файл
+
+// Записываем в конец файла нулевой символ
+lpchANSI = (LPSTR) lpvFile;
+lpchANSI[dwFileSize] = 0;
+
+// "Переворачиваем" содержимое файла наоборот
+_strrev(lpchANSI):
+
+// Преобразуем все комбинации "\n\r" обратно в "\r\n",
+// чтобы сохранить нормальную последовательность кодов,
+// завершающих строки в текстовом файле
+
+lpchANSI = strchr(lpchANSI, "\n"):   // Находим первый "\n"
+
+while (lpchANSI != NULL) {
+// Мы нашли искомое
+
+*lpchANSI++ = "\r"; // Заменяем "\n" на "\r"
+*lpchANSI++ = "\n"; // Заменяем "\r" на "\n"
+lpchANSI = strchr(lpchANSI, "\n)";   // Ищем дальше
+
+}
+
+} else {
+
+// При дальнейших операциях с файлами явно используем
+// вместо ANSI-функций Unicode-функции, так как
+// приложение обрабатывает Unicode-файл
+
+// Записываем в конец файла нулевой символ
+lpchUnicode = (LPWSTR) lpvFile);
+lpchUnicode[dwFileSize] = 0;
+
+// "Переворачиваем" содержимое файла наоборот
+_wcsrev (lpchUnicode):
+
+// Преобразуем все комбинации "\n\r" обратно в "\r\n",
+// чтобы сохранить нормальную последовательность кодов,
+// завершающих строки в текстовом файле
+lpchUnicode = wcschr(lpchUnicode, L"\n");  // Находим первый "\n"
+
+while (lpchUnicode != NULL) {
+// Мы нашли искомое
+
+*lpchUnicode++ = L"\r"; // Заменяем "\n" на "\r"
+*lpchUnicode++ = L"\n"; // Заменяем "\r" на "\n"
+lpchUnicode = wcschr(lpchUnicode, L"\n");  // Ищем дальше
+}
+}
+
+// Очищаем все перед завершением
+UnmapViewOfFile(lpvFile);
+CloseHandle(hFileMap);
+
+// Удаляем добавленный ранее концевой нулевой байт.Для этого
+// помещаем указатель файла в конец, не считая сам нулевой байт,
+// а затем даем команду установить в этом месте конец файла
+SetFilePointer(hFile, dwFileSize, NULL, FILE_BEGIN);
+
+// SetEndOfFlle нужно вызывать после закрытия объекта ядра
+// "проецируемый файл"
+SetEndOfFile(hFile);
+CloseHandle(hFile);
+
+// Порождаем процесс NOTEPAD, чтобы увидеть плоды своих трудов
+si.cb = sizeof (si);
+si.wShowWindow = SW_SHOW;
+si.dwFlags = STARTF_USESHOWWINDOW;
+if (CreateProcess(NULL, __TEXT("NOTEPAD.EXE") FILENAME,
+NULL, NULL, FALSE, 0, NULL, NULL, &si, &pi)) {
+
+CloseHandle(pi.Threade);
+CloseHandle(pi.hProcess);
+}
+return( 0 );
+}
+

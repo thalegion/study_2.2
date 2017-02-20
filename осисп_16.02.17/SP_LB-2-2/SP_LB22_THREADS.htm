@@ -1,0 +1,1014 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:w="urn:schemas-microsoft-com:office:word"
+xmlns:m="http://schemas.microsoft.com/office/2004/12/omml"
+xmlns="http://www.w3.org/TR/REC-html40">
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1251">
+<meta name=ProgId content=Word.Document>
+<meta name=Generator content="Microsoft Word 12">
+<meta name=Originator content="Microsoft Word 12">
+<link rel=File-List href="SP_LB22_THREADS.files/filelist.xml">
+<title>Лабораторная работа</title>
+<!--[if gte mso 9]><xml>
+ <o:DocumentProperties>
+  <o:Author>Alamos</o:Author>
+  <o:LastAuthor>spfuser</o:LastAuthor>
+  <o:Revision>5</o:Revision>
+  <o:TotalTime>34</o:TotalTime>
+  <o:Created>2011-06-16T14:37:00Z</o:Created>
+  <o:LastSaved>2016-11-29T07:34:00Z</o:LastSaved>
+  <o:Pages>1</o:Pages>
+  <o:Words>521</o:Words>
+  <o:Characters>3586</o:Characters>
+  <o:Lines>29</o:Lines>
+  <o:Paragraphs>8</o:Paragraphs>
+  <o:CharactersWithSpaces>4099</o:CharactersWithSpaces>
+  <o:Version>12.00</o:Version>
+ </o:DocumentProperties>
+ <o:OfficeDocumentSettings>
+  <o:RelyOnVML/>
+  <o:AllowPNG/>
+  <o:TargetScreenSize>1024x768</o:TargetScreenSize>
+ </o:OfficeDocumentSettings>
+</xml><![endif]-->
+<link rel=themeData href="SP_LB22_THREADS.files/themedata.thmx">
+<link rel=colorSchemeMapping href="SP_LB22_THREADS.files/colorschememapping.xml">
+<!--[if gte mso 9]><xml>
+ <w:WordDocument>
+  <w:SpellingState>Clean</w:SpellingState>
+  <w:GrammarState>Clean</w:GrammarState>
+  <w:TrackMoves/>
+  <w:TrackFormatting/>
+  <w:PunctuationKerning/>
+  <w:ValidateAgainstSchemas/>
+  <w:SaveIfXMLInvalid>false</w:SaveIfXMLInvalid>
+  <w:IgnoreMixedContent>false</w:IgnoreMixedContent>
+  <w:AlwaysShowPlaceholderText>false</w:AlwaysShowPlaceholderText>
+  <w:DoNotPromoteQF/>
+  <w:LidThemeOther>RU</w:LidThemeOther>
+  <w:LidThemeAsian>X-NONE</w:LidThemeAsian>
+  <w:LidThemeComplexScript>X-NONE</w:LidThemeComplexScript>
+  <w:Compatibility>
+   <w:BreakWrappedTables/>
+   <w:SnapToGridInCell/>
+   <w:WrapTextWithPunct/>
+   <w:UseAsianBreakRules/>
+   <w:DontGrowAutofit/>
+   <w:SplitPgBreakAndParaMark/>
+   <w:DontVertAlignCellWithSp/>
+   <w:DontBreakConstrainedForcedTables/>
+   <w:DontVertAlignInTxbx/>
+   <w:Word11KerningPairs/>
+   <w:CachedColBalance/>
+  </w:Compatibility>
+  <w:BrowserLevel>MicrosoftInternetExplorer4</w:BrowserLevel>
+  <m:mathPr>
+   <m:mathFont m:val="Cambria Math"/>
+   <m:brkBin m:val="before"/>
+   <m:brkBinSub m:val="&#45;-"/>
+   <m:smallFrac m:val="off"/>
+   <m:dispDef/>
+   <m:lMargin m:val="0"/>
+   <m:rMargin m:val="0"/>
+   <m:defJc m:val="centerGroup"/>
+   <m:wrapIndent m:val="1440"/>
+   <m:intLim m:val="subSup"/>
+   <m:naryLim m:val="undOvr"/>
+  </m:mathPr></w:WordDocument>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <w:LatentStyles DefLockedState="false" DefUnhideWhenUsed="false"
+  DefSemiHidden="false" DefQFormat="false" LatentStyleCount="267">
+  <w:LsdException Locked="false" QFormat="true" Name="Normal"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 1"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 2"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 3"/>
+  <w:LsdException Locked="false" QFormat="true" Name="heading 4"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 5"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 6"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 7"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 8"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="heading 9"/>
+  <w:LsdException Locked="false" SemiHidden="true" UnhideWhenUsed="true"
+   QFormat="true" Name="caption"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Title"/>
+  <w:LsdException Locked="false" Priority="1" Name="Default Paragraph Font"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Subtitle"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Strong"/>
+  <w:LsdException Locked="false" QFormat="true" Name="Emphasis"/>
+  <w:LsdException Locked="false" Priority="99" Name="No List"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true"
+   Name="Placeholder Text"/>
+  <w:LsdException Locked="false" Priority="1" QFormat="true" Name="No Spacing"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 1"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="99" SemiHidden="true" Name="Revision"/>
+  <w:LsdException Locked="false" Priority="34" QFormat="true"
+   Name="List Paragraph"/>
+  <w:LsdException Locked="false" Priority="29" QFormat="true" Name="Quote"/>
+  <w:LsdException Locked="false" Priority="30" QFormat="true"
+   Name="Intense Quote"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 1"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 1"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 1"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 1"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 1"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 1"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 1"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 2"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 2"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 2"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 2"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 2"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 2"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 2"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 2"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 3"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 3"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 3"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 3"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 3"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 3"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 3"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 3"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 4"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 4"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 4"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 4"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 4"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 4"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 4"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 4"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 5"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 5"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 5"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 5"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 5"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 5"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 5"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 5"/>
+  <w:LsdException Locked="false" Priority="60" Name="Light Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="61" Name="Light List Accent 6"/>
+  <w:LsdException Locked="false" Priority="62" Name="Light Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="63" Name="Medium Shading 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="64" Name="Medium Shading 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="65" Name="Medium List 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="66" Name="Medium List 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="67" Name="Medium Grid 1 Accent 6"/>
+  <w:LsdException Locked="false" Priority="68" Name="Medium Grid 2 Accent 6"/>
+  <w:LsdException Locked="false" Priority="69" Name="Medium Grid 3 Accent 6"/>
+  <w:LsdException Locked="false" Priority="70" Name="Dark List Accent 6"/>
+  <w:LsdException Locked="false" Priority="71" Name="Colorful Shading Accent 6"/>
+  <w:LsdException Locked="false" Priority="72" Name="Colorful List Accent 6"/>
+  <w:LsdException Locked="false" Priority="73" Name="Colorful Grid Accent 6"/>
+  <w:LsdException Locked="false" Priority="19" QFormat="true"
+   Name="Subtle Emphasis"/>
+  <w:LsdException Locked="false" Priority="21" QFormat="true"
+   Name="Intense Emphasis"/>
+  <w:LsdException Locked="false" Priority="31" QFormat="true"
+   Name="Subtle Reference"/>
+  <w:LsdException Locked="false" Priority="32" QFormat="true"
+   Name="Intense Reference"/>
+  <w:LsdException Locked="false" Priority="33" QFormat="true" Name="Book Title"/>
+  <w:LsdException Locked="false" Priority="37" SemiHidden="true"
+   UnhideWhenUsed="true" Name="Bibliography"/>
+  <w:LsdException Locked="false" Priority="39" SemiHidden="true"
+   UnhideWhenUsed="true" QFormat="true" Name="TOC Heading"/>
+ </w:LatentStyles>
+</xml><![endif]-->
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;
+	mso-font-charset:204;
+	mso-generic-font-family:roman;
+	mso-font-pitch:variable;
+	mso-font-signature:-536870145 1107305727 0 0 415 0;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;
+	mso-font-charset:204;
+	mso-generic-font-family:swiss;
+	mso-font-pitch:variable;
+	mso-font-signature:536871559 0 0 0 415 0;}
+@font-face
+	{font-family:Consolas;
+	panose-1:2 11 6 9 2 2 4 3 2 4;
+	mso-font-charset:204;
+	mso-generic-font-family:modern;
+	mso-font-pitch:fixed;
+	mso-font-signature:-520092929 1073806591 9 0 415 0;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Verdana","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:#000066;}
+h1
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Заголовок 1 Знак";
+	mso-style-next:Обычный;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:12.0pt;
+	margin-left:57.05pt;
+	text-align:justify;
+	text-indent:-21.6pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	mso-list:l0 level1 lfo2;
+	tab-stops:list 57.05pt;
+	font-size:16.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	mso-font-kerning:16.0pt;}
+h2
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Заголовок 2 Знак";
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:64.25pt;
+	text-indent:-28.8pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:2;
+	mso-list:l0 level2 lfo2;
+	tab-stops:list 64.25pt;
+	font-size:12.0pt;
+	mso-bidi-font-size:18.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;}
+h3
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Заголовок 3 Знак";
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:64.4pt;
+	text-indent:-36.0pt;
+	mso-pagination:widow-orphan;
+	mso-outline-level:3;
+	mso-list:l0 level3 lfo2;
+	tab-stops:list 64.4pt;
+	font-size:12.0pt;
+	mso-bidi-font-size:13.5pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	color:navy;
+	font-weight:normal;
+	mso-bidi-font-weight:bold;}
+h4
+	{mso-style-unhide:no;
+	mso-style-qformat:yes;
+	mso-style-link:"Заголовок 4 Знак";
+	mso-style-next:Обычный;
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:3.0pt;
+	margin-left:78.65pt;
+	text-align:justify;
+	text-indent:-43.2pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:4;
+	mso-list:l0 level4 lfo2;
+	tab-stops:list 78.65pt;
+	font-size:14.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:minor-fareast;
+	font-style:italic;
+	mso-bidi-font-style:normal;}
+p.MsoMacroText, li.MsoMacroText, div.MsoMacroText
+	{mso-style-noshow:yes;
+	mso-style-unhide:no;
+	mso-style-parent:"";
+	mso-style-link:"Текст макроса Знак";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:35.45pt;
+	mso-pagination:widow-orphan;
+	tab-stops:24.0pt 48.0pt 72.0pt 96.0pt 120.0pt 144.0pt 168.0pt 192.0pt 216.0pt;
+	font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";}
+span.1
+	{mso-style-name:"Заголовок 1 Знак";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Заголовок 1";
+	mso-ansi-font-size:14.0pt;
+	mso-bidi-font-size:14.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#365F91;
+	mso-themecolor:accent1;
+	mso-themeshade:191;
+	font-weight:bold;}
+span.2
+	{mso-style-name:"Заголовок 2 Знак";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Заголовок 2";
+	mso-ansi-font-size:13.0pt;
+	mso-bidi-font-size:13.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.3
+	{mso-style-name:"Заголовок 3 Знак";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Заголовок 3";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;}
+span.4
+	{mso-style-name:"Заголовок 4 Знак";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Заголовок 4";
+	mso-ansi-font-size:12.0pt;
+	mso-bidi-font-size:12.0pt;
+	font-family:"Cambria","serif";
+	mso-ascii-font-family:Cambria;
+	mso-ascii-theme-font:major-latin;
+	mso-fareast-font-family:"Times New Roman";
+	mso-fareast-theme-font:major-fareast;
+	mso-hansi-font-family:Cambria;
+	mso-hansi-theme-font:major-latin;
+	mso-bidi-font-family:"Times New Roman";
+	mso-bidi-theme-font:major-bidi;
+	color:#4F81BD;
+	mso-themecolor:accent1;
+	font-weight:bold;
+	font-style:italic;}
+span.a
+	{mso-style-name:"Текст макроса Знак";
+	mso-style-unhide:no;
+	mso-style-locked:yes;
+	mso-style-link:"Текст макроса";
+	font-family:Consolas;
+	mso-ascii-font-family:Consolas;
+	mso-hansi-font-family:Consolas;
+	mso-bidi-font-family:Consolas;
+	color:#000066;}
+p.a0, li.a0, div.a0
+	{mso-style-name:"Заголовок Темы";
+	mso-style-unhide:no;
+	mso-style-parent:"Заголовок 1";
+	mso-style-next:"Заголовок 2";
+	margin-top:12.0pt;
+	margin-right:0cm;
+	margin-bottom:12.0pt;
+	margin-left:57.05pt;
+	text-align:justify;
+	text-indent:-21.6pt;
+	mso-pagination:widow-orphan;
+	page-break-after:avoid;
+	mso-outline-level:1;
+	mso-list:l1 level1 lfo4;
+	tab-stops:list 57.05pt;
+	font-size:16.0pt;
+	font-family:"Arial","sans-serif";
+	mso-fareast-font-family:"Times New Roman";
+	mso-font-kerning:16.0pt;
+	font-weight:bold;}
+p.fdeclCourierNew16-, li.fdeclCourierNew16-, div.fdeclCourierNew16-
+	{mso-style-name:"Стиль fdecl + Courier New 16 пт полужирный Темно-синий";
+	mso-style-unhide:no;
+	mso-margin-top-alt:auto;
+	margin-right:0cm;
+	mso-margin-bottom-alt:auto;
+	margin-left:0cm;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	color:navy;
+	mso-bidi-font-weight:bold;}
+p.10, li.10, div.10
+	{mso-style-name:Стиль1;
+	mso-style-unhide:no;
+	mso-style-parent:"Текст макроса";
+	margin:0cm;
+	margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	tab-stops:24.0pt 48.0pt 72.0pt 96.0pt 120.0pt 144.0pt 168.0pt 192.0pt 216.0pt;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	color:navy;}
+p.a1, li.a1, div.a1
+	{mso-style-name:Об_мет;
+	mso-style-unhide:no;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	text-indent:35.45pt;
+	mso-pagination:widow-orphan;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.a2, li.a2, div.a2
+	{mso-style-name:Прог_текст;
+	mso-style-unhide:no;
+	mso-style-parent:Об_мет;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:35.45pt;
+	mso-pagination:widow-orphan;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p.a3, li.a3, div.a3
+	{mso-style-name:Прог_реестр;
+	mso-style-unhide:no;
+	mso-style-parent:Прог_текст;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:35.45pt;
+	mso-pagination:widow-orphan;
+	tab-stops:14.2pt 1.0cm 42.55pt 2.0cm 70.9pt 3.0cm 99.25pt 4.0cm 127.6pt 5.0cm 155.95pt;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Courier New";
+	mso-fareast-font-family:"Times New Roman";
+	mso-bidi-font-family:"Times New Roman";
+	font-weight:bold;
+	mso-bidi-font-weight:normal;}
+p.a4, li.a4, div.a4
+	{mso-style-name:Рис_место;
+	mso-style-unhide:no;
+	mso-style-parent:Об_мет;
+	margin-top:6.0pt;
+	margin-right:0cm;
+	margin-bottom:6.0pt;
+	margin-left:0cm;
+	text-align:center;
+	mso-pagination:widow-orphan;
+	font-size:14.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+p.a5, li.a5, div.a5
+	{mso-style-name:Об_табл;
+	mso-style-unhide:no;
+	mso-style-parent:Об_мет;
+	margin:0cm;
+	margin-bottom:.0001pt;
+	text-align:justify;
+	mso-pagination:widow-orphan;
+	font-size:12.0pt;
+	mso-bidi-font-size:10.0pt;
+	font-family:"Times New Roman","serif";
+	mso-fareast-font-family:"Times New Roman";}
+span.SpellE
+	{mso-style-name:"";
+	mso-spl-e:yes;}
+span.GramE
+	{mso-style-name:"";
+	mso-gram-e:yes;}
+.MsoChpDefault
+	{mso-style-type:export-only;
+	mso-default-props:yes;
+	font-size:10.0pt;
+	mso-ansi-font-size:10.0pt;
+	mso-bidi-font-size:10.0pt;}
+@page Section1
+	{size:595.3pt 841.9pt;
+	margin:2.0cm 42.5pt 2.0cm 3.0cm;
+	mso-header-margin:35.4pt;
+	mso-footer-margin:35.4pt;
+	mso-paper-source:0;}
+div.Section1
+	{page:Section1;}
+ /* List Definitions */
+ @list l0
+	{mso-list-id:930313339;
+	mso-list-template-ids:-486922604;}
+@list l0:level1
+	{mso-level-style-link:"Заголовок 1";
+	mso-level-text:%1;
+	mso-level-tab-stop:57.05pt;
+	mso-level-number-position:left;
+	margin-left:57.05pt;
+	text-indent:-21.6pt;}
+@list l0:level2
+	{mso-level-style-link:"Заголовок 2";
+	mso-level-text:"%1\.%2";
+	mso-level-tab-stop:64.25pt;
+	mso-level-number-position:left;
+	margin-left:64.25pt;
+	text-indent:-28.8pt;}
+@list l0:level3
+	{mso-level-style-link:"Заголовок 3";
+	mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:64.4pt;
+	mso-level-number-position:left;
+	margin-left:64.4pt;
+	text-indent:-36.0pt;}
+@list l0:level4
+	{mso-level-style-link:"Заголовок 4";
+	mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:78.65pt;
+	mso-level-number-position:left;
+	margin-left:78.65pt;
+	text-indent:-43.2pt;}
+@list l0:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:85.85pt;
+	mso-level-number-position:left;
+	margin-left:85.85pt;
+	text-indent:-50.4pt;}
+@list l0:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:93.05pt;
+	mso-level-number-position:left;
+	margin-left:93.05pt;
+	text-indent:-57.6pt;}
+@list l0:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:100.25pt;
+	mso-level-number-position:left;
+	margin-left:100.25pt;
+	text-indent:-64.8pt;}
+@list l0:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:107.45pt;
+	mso-level-number-position:left;
+	margin-left:107.45pt;
+	text-indent:-72.0pt;}
+@list l0:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:114.65pt;
+	mso-level-number-position:left;
+	margin-left:114.65pt;
+	text-indent:-79.2pt;}
+@list l1
+	{mso-list-id:2077124690;
+	mso-list-template-ids:-769904610;}
+@list l1:level1
+	{mso-level-style-link:"Заголовок Темы";
+	mso-level-text:"Тема %1";
+	mso-level-tab-stop:57.05pt;
+	mso-level-number-position:left;
+	margin-left:57.05pt;
+	text-indent:-21.6pt;
+	mso-ansi-font-size:16.0pt;
+	font-family:"Arial","sans-serif";
+	mso-bidi-font-family:"Times New Roman";}
+@list l1:level2
+	{mso-level-text:"%1\.%2";
+	mso-level-tab-stop:64.25pt;
+	mso-level-number-position:left;
+	margin-left:64.25pt;
+	text-indent:-28.8pt;}
+@list l1:level3
+	{mso-level-text:"%1\.%2\.%3";
+	mso-level-tab-stop:71.45pt;
+	mso-level-number-position:left;
+	margin-left:71.45pt;
+	text-indent:-36.0pt;}
+@list l1:level4
+	{mso-level-text:"%1\.%2\.%3\.%4";
+	mso-level-tab-stop:78.65pt;
+	mso-level-number-position:left;
+	margin-left:78.65pt;
+	text-indent:-43.2pt;}
+@list l1:level5
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5";
+	mso-level-tab-stop:85.85pt;
+	mso-level-number-position:left;
+	margin-left:85.85pt;
+	text-indent:-50.4pt;}
+@list l1:level6
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6";
+	mso-level-tab-stop:93.05pt;
+	mso-level-number-position:left;
+	margin-left:93.05pt;
+	text-indent:-57.6pt;}
+@list l1:level7
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7";
+	mso-level-tab-stop:100.25pt;
+	mso-level-number-position:left;
+	margin-left:100.25pt;
+	text-indent:-64.8pt;}
+@list l1:level8
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8";
+	mso-level-tab-stop:107.45pt;
+	mso-level-number-position:left;
+	margin-left:107.45pt;
+	text-indent:-72.0pt;}
+@list l1:level9
+	{mso-level-text:"%1\.%2\.%3\.%4\.%5\.%6\.%7\.%8\.%9";
+	mso-level-tab-stop:114.65pt;
+	mso-level-number-position:left;
+	margin-left:114.65pt;
+	text-indent:-79.2pt;}
+ol
+	{margin-bottom:0cm;}
+ul
+	{margin-bottom:0cm;}
+-->
+</style>
+<!--[if gte mso 10]>
+<style>
+ /* Style Definitions */
+ table.MsoNormalTable
+	{mso-style-name:"Обычная таблица";
+	mso-tstyle-rowband-size:0;
+	mso-tstyle-colband-size:0;
+	mso-style-noshow:yes;
+	mso-style-priority:99;
+	mso-style-qformat:yes;
+	mso-style-parent:"";
+	mso-padding-alt:0cm 5.4pt 0cm 5.4pt;
+	mso-para-margin:0cm;
+	mso-para-margin-bottom:.0001pt;
+	mso-pagination:widow-orphan;
+	font-size:10.0pt;
+	font-family:"Times New Roman","serif";}
+</style>
+<![endif]--><!--[if gte mso 9]><xml>
+ <o:shapedefaults v:ext="edit" spidmax="1026"/>
+</xml><![endif]--><!--[if gte mso 9]><xml>
+ <o:shapelayout v:ext="edit">
+  <o:idmap v:ext="edit" data="1"/>
+ </o:shapelayout></xml><![endif]-->
+</head>
+
+<body lang=RU style='tab-interval:35.4pt'>
+
+<div class=Section1>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:16.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>Лабораторная работа</span></b><b
+style='mso-bidi-font-weight:normal'><span style='font-size:16.0pt;line-height:
+115%;font-family:"Times New Roman","serif";mso-ansi-language:EN-US'> <span
+lang=EN-US><o:p></o:p></span></span></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:16.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>УПРАВЛЕНИЕ ПОТОКАМИ В WIN32 API<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>Цель работы: </span></b><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Изучить
+возможности управление потоками в Win32 API. Приобрести практические навыки
+создания многопоточных приложений <span class=SpellE>Windows</span>.<b
+style='mso-bidi-font-weight:normal'><o:p></o:p></b></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>Задание:</span></b><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>
+Изучить представленные в папке работы примеры многопоточных приложений и
+реализованные в них возможности управление потоками в Win32 API. Приобрести
+практические навыки создания многопоточных приложений Windows. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-spacerun:yes'> </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>Выполнение:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><u><span style='font-size:14.0pt;
+line-height:115%;font-family:"Times New Roman","serif"'>Предварительный шаг <span
+class=GramE>-о</span>знакомление</span></u></b><span style='font-size:14.0pt;
+line-height:115%;font-family:"Times New Roman","serif"'>: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-tab-count:1'>         </span>Изучите примеры многопоточных
+приложений, представленные в папке лабораторной работы, реализуйте проекты,
+сформируйте исполнимые файлы, запустите на выполнение, ознакомьтесь с исходным
+тестом.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><span style='font-size:14.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>Получение практических навыков
+работы с потоками:<o:p></o:p></span></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-tab-count:1'>         </span>1. В своей рабочей папке создайте
+проект<span style='mso-spacerun:yes'>  </span>типа Win32 <span class=SpellE>Application</span>
+с<span style='mso-spacerun:yes'>  </span>главным окном, меню и диалоговым окном
+“О программе …”. Дайте проекту имя “<span class=SpellE>ФАМИЛИЯ_thread_lb</span>”
+.<span style='mso-spacerun:yes'>  </span><o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-tab-count:1'>         </span>2. Добавьте <span class=SpellE>PopUp</span>
+меню “Поток 1” и “Поток 2” с командами “Создать поток”, “Создать ждущий поток”,
+“Приостановить поток”, “Продолжить работу потока”, “Уничтожить поток”,
+“Увеличить приоритет”, “Уменьшить приоритет”.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Добавьте
+<span class=SpellE>PopUp</span> меню “Информация о потоках” с командами
+“Первичный поток ”, “Поток 1”, “Поток 2”. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-tab-count:1'>         </span>3. Добавьте в приложение код обработки
+новых команд меню “Поток 1”, “Поток 2” и &quot;Информация о потоках&quot;.
+Команды в меню “Поток 1”, “Поток 2” одинаковые, но для разных потоков.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><b style='mso-bidi-font-weight:
+normal'><u><span style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Для
+меню “Поток 1”, “Поток 2”<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.1
+.По команде “Создать поток” создавать вторичный поток, функция которого будет
+выводить в бесконечном цикле “бегущую” строку “Вторичный поток создал
+&lt;Фамилия&gt;”. Строку выводить в главное <span class=GramE>окно</span>
+начиная с задаваемой позиции. Количество созданных вторичных потоков хранить в
+глобальной переменной <span class=SpellE>g_uThCount</span>. При создании нового
+потока сохранять дескриптор потока в массиве <span class=SpellE>hSecThread</span>
+под соответствующим<span style='mso-spacerun:yes'>  </span>индексом(0 <span
+class=GramE>для</span> первичного, 1 для “Поток 1”, 2 для<span
+style='mso-spacerun:yes'>  </span>“Поток 2”). Аналогичным образом сохранять
+идентификаторы потоков в массиве <span class=SpellE>dwSecThreadId</span>. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Перед
+выполнением команды проверять существование соответствующего потока. Для этого
+можно</span><span lang=EN-US style='font-size:14.0pt;line-height:115%;
+font-family:"Times New Roman","serif";mso-ansi-language:EN-US'>:<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:42.55pt;margin-bottom:.0001pt;text-indent:-14.2pt;line-height:115%'><span
+lang=EN-US style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif";
+mso-ansi-language:EN-US'>a</span><span style='font-size:14.0pt;line-height:
+115%;font-family:"Times New Roman","serif"'>) <span class=GramE>проверять</span>
+состояние переменных <span class=SpellE>hSecThread</span>, которые при их
+создании и при уничтожении или завершении соответствующего потока необходимо
+обнулять. Если поток уже существует, то создание еще одного с сохранением дескриптора
+в той же переменной будет ошибкой;<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:42.55pt;margin-bottom:.0001pt;text-indent:-14.2pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>б)
+использовать метод блокирования команд меню.<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.2.<span
+style='mso-spacerun:yes'>  </span>По команде “Создать ждущий поток” создать
+вторичный поток аналогично, как в пункте 3.1, но находящийся сразу после
+создания в “спящем” состоянии. Поток не <span class=GramE>создавать</span> если
+он уже создан по<span style='mso-spacerun:yes'>  </span>этой же команде меню
+или по команде &quot;Создать поток&quot; <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.3.<span
+style='mso-spacerun:yes'>  </span>По команде “Приостановить поток” перевести
+поток в состояние ожидания (сделать “спящим”). <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.4.
+По команде “Продолжить работу потока ” перевести поток в рабочее состояние
+(“разбудить поток”). <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.5.<span
+style='mso-spacerun:yes'>  </span>По команде “Уничтожить поток ” завершить
+работу потока. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.6.<span
+style='mso-spacerun:yes'>  </span>По команде “Увеличить приоритет” увеличить
+относительный приоритет потока. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.7.<span
+style='mso-spacerun:yes'>  </span>По команде “Уменьшить приоритет” уменьшить
+относительный приоритет потока. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><b style='mso-bidi-font-weight:
+normal'><u><span style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>Для
+меню &quot;Информация о потоках&quot; <o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.<span
+style='mso-spacerun:yes'>  </span>По команде “Информация о потоках” -&gt;
+“Поток <span class=SpellE>хх</span>” в диалоговом окне в элемент типа список
+выводить информацию о соответствующем потоке (включая и первичный поток). Для
+каждого потока выводить: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:2.0cm;margin-bottom:.0001pt;line-height:115%;tab-stops:63.8pt'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.1.<span
+style='mso-spacerun:yes'>  </span>Идентификатор потока; <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:2.0cm;margin-bottom:.0001pt;line-height:115%;tab-stops:63.8pt'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.2.
+Дескриптор потока; <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:2.0cm;margin-bottom:.0001pt;line-height:115%;tab-stops:63.8pt'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.3.<span
+style='mso-spacerun:yes'>  </span>Состояние потока (активное, ожидание, заверше<span
+class=GramE>н(</span>код завершения)); <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:2.0cm;margin-bottom:.0001pt;line-height:115%;tab-stops:63.8pt'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.4.<span
+style='mso-spacerun:yes'>  </span>Относительный приоритет потока; <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:2.0cm;margin-bottom:.0001pt;line-height:115%;tab-stops:63.8pt'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>3.8.5.
+Время работы потока с момента его создания. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>4.
+Выполните компиляцию, компоновку<span style='mso-spacerun:yes'>  </span>и отладку
+программы. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>5.
+Выполните эксперименты с полученной программой: <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0cm;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>приостановить
+поток, <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0cm;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>продолжить
+работу потока, <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0cm;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>увеличить
+(уменьшить) приоритет, <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0cm;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>завершить
+работу потока, <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-left:1.0cm;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>создать
+поток снова и т.д. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:0cm;
+margin-left:1.0cm;margin-bottom:.0001pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>После
+каждой операции анализировать информацию о потоке (потоках).<o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'><span
+style='mso-spacerun:yes'> </span>Дайте пояснение полученной информации. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><u><span style='font-size:14.0pt;
+line-height:115%;font-family:"Times New Roman","serif"'>==========================================================<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><b
+style='mso-bidi-font-weight:normal'><u><span style='font-size:14.0pt;
+line-height:115%;font-family:"Times New Roman","serif"'>Для самостоятельной
+работы<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>6.
+Добавьте в приложение поток, который будет обеспечивать вывод анимированного
+изображения в соответствии с индивидуальным заданием. <o:p></o:p></span></p>
+
+<p class=MsoNormal style='line-height:115%'><b style='mso-bidi-font-weight:
+normal'><u><span style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>__________________________<o:p></o:p></span></u></b></p>
+
+<p class=MsoNormal style='margin-top:6.0pt;line-height:115%'><span
+style='font-size:14.0pt;line-height:115%;font-family:"Times New Roman","serif"'>7.
+Оформите отчет о работе. <o:p></o:p></span></p>
+
+<p class=MsoNormal><span style='font-size:14.0pt;font-family:"Times New Roman","serif"'><o:p>&nbsp;</o:p></span></p>
+
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+<META NAME="Generator" CONTENT="Microsoft Word 97">
+<TITLE>#include &lt;windows</TITLE>
+<META NAME="Template" CONTENT="D:\PROGRAM FILES\MICROSOFT OFFICE\OFFICE\html.dot">
+</HEAD>
+<BODY LINK="#0000ff" VLINK="#800080" BGCOLOR="#ccecff">
+
+<B><FONT FACE="Courier New" SIZE=2><P>// Москалев А. Курс ППЭВМ<BR>
+// Пример применения проецирования файлов в память. <BR>
+// Реверс файла.</B></FONT><FONT FACE="Courier New" SIZE=2> &#9;<B><BR>
+</FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000080">#include</B> &lt;windows.h&gt; <BR>
+<B>#include </B>&lt;windowsx.h&gt;<B><BR>
+#include </B>&lt;tchar.h&gt;<B> <BR>
+#include </B>&lt;string.h&gt;<B><BR>
+#include </B>"resource.h"</P>
+<B><P>#define FILENAME __TEXT("FILEREV.DAT")</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>// макро __TEXT() оставляет строку в ANSI формате или<BR>
+// преобразует в формат UNICODE в зависимости от условий <BR>
+// компиляции: определен или нет символ _UNICODE </P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>int WINAPI WinMain( HINSTANCE hinstExe,HINSTANCE hinstPrev, <BR>
+&#9;&#9;&#9;  LPSTR lpszCmdLine, int nCmdShow) <BR>
+{<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>// Объявление локальных переменных:</P>
+</FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>HANDLE hFile;    //</B></FONT><FONT FACE="Courier New" SIZE=2> Для дескриптора объекта "файл"<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">HANDLE hFileMap; //</B></FONT><FONT FACE="Courier New" SIZE=2> Для дескриптора объекта 'проецируемый файл'<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">LPVOID lpvFile;  //</B></FONT><FONT FACE="Courier New" SIZE=2> Для адреса региона в адресном пространстве<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> куда будет отображаться файл</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>LPSTR lpchANSI;  //</B></FONT><FONT FACE="Courier New" SIZE=2> Указатель на ANSI строку<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">LPWSTR lpchUNI;  //</B></FONT><FONT FACE="Courier New" SIZE=2> Указатель на строку в UNICODE <BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">DWORD dwFileSize;    //</B></FONT><FONT FACE="Courier New" SIZE=2> Для значения размера файла <BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">LPTSTR lpszCmdLineT; //</B></FONT><FONT FACE="Courier New" SIZE=2> Указатель на командную строку <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                     </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> в ANSI или UNICODE<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">BOOL fIsTextUnicode = FALSE; //</B></FONT><FONT FACE="Courier New" SIZE=2> Флаг представления текста в UNICODE</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>STARTUPINFO si={0};     //</B></FONT><FONT FACE="Courier New" SIZE=2> Структуры для функции<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">PROCESS_INFORMATION pi; //</B></FONT><FONT FACE="Courier New" SIZE=2> CreateProcess </P>
+<P>// </FONT><B><FONT FACE="Courier New" SIZE=2>Получаем из командной строки имя преобразуемого файла.</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpszCmdLineT =lpszCmdLine; //</B></FONT><FONT FACE="Courier New" SIZE=2> Только для Windows 95/98</P>
+<P>// Если нужна переносимоть кода на платформу NT, то нельзя <BR>
+// использовать параметр lpszCmdLine функции WinMain, так <BR>
+// как это всегда указатель на ANSI - строку. <BR>
+// Функция GetCmdLine позволяет получить командную строку <BR>
+// в ANSI или UNICODE в зависимости от того, как мы компилируем<BR>
+// программу (включена строка ##define _UNICODE или нет)<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><BR>
+lpszCmdLineT= _tcschr( GetCommanddLine(), __TEXT(" "));</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>// _tcschr() - генеральная функция, заменяемая в зависимости от<BR>
+// условий компиляции на strchr(), wcschr() или _mbschr().<BR>
+// Ищет в строке заданный символ и возвращает указатель на него.<BR>
+// В данном случае ищем первый пробел.<BR>
+&#9;<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if((lpszCmdLineT == NULL) || (*lpszCmdLineT ==0))</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;<B>{</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+// Пробела не найдено. Указатель равен нулю или указывает на <BR>
+// конец строки (нулевой байт в конце). Значит аргументов после<BR>
+// имени исполняемого файла не указано. Сообщаем об ошибке.<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MessageBox( NULL,</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+                        </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">__TEXT("You must enter a filename on ")</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">__TEXT("the command line."), //</B></FONT><FONT FACE="Courier New" SIZE=2> Строка сообщения<BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">__TEXT("FileRev"), //</B></FONT><FONT FACE="Courier New" SIZE=2> Строка заголовка окна<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                        </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MB_OK );</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return(0);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>// Чтобы не испортить<B> входной файл, копируем </B>его<B> в новый файл,</B><BR>
+// имя которого указываем через определенную выше константу FI</FONT><FONT FACE="Courier New" SIZE=2>LENAME.<BR>
+&#9;<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if (!CopyFile(lpszCmdLineT, FILENAME, FALSE))</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{<BR>
+</B></FONT><FONT FACE="Courier New" SIZE=2>&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> Копирование не удалось<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MessageBox( NULL,<BR>
+                        __TEXT("New file could not be created."),<BR>
+&#9;&#9;&#9;&#9;__TEXT("FileRev"), MB_OK);<BR>
+</B></FONT><FONT FACE="Courier New" SIZE=2>&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return (0);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">&#9;}</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>// </FONT><B><FONT FACE="Courier New" SIZE=2>Открываем файл для чтения и записи</B>. Для этого создаем объект<BR>
+// ядра "Файл". В зависимости от указанных параметров функция <BR>
+// CreateFile либо открывает существующий файл, либо создает новый.<BR>
+// Только эта функция может использоваться для открытия файла,<BR>
+// проецируемого в память. Функция возвращает дескриптор открытого<BR>
+// объекта ядра, или код ошибки INVALID_HANDLE_VALUE.</P>
+</FONT><FONT FACE="Courier New" SIZE=2><P>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">hFile = CreateFile( <BR>
+              FILENAME, //</B></FONT><FONT FACE="Courier New" SIZE=2> Указатель на строку с имененм файла<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">GENERIC_WRITE | GENERIC_READ, //</B></FONT><FONT FACE="Courier New" SIZE=2> Требуемый режим доступа<BR>
+&#9;&#9;</FONT><FONT FACE="Courier New" SIZE=2>  </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">0,  //</B></FONT><FONT FACE="Courier New" SIZE=2> Режим разделения,0 - безраздельный доступ к файлу. <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">NULL,//</B></FONT><FONT FACE="Courier New" SIZE=2> LPSECURITY_ATTRIBUTES=0 - объект не наследуемый.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">OPEN_EXISTING,// </B></FONT><FONT FACE="Courier New" SIZE=2>Если файл не существует, </FONT><FONT FACE="Courier New" SIZE=2><BR>
+                            // </FONT><FONT FACE="Courier New" SIZE=2>то возвратить ошибку.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">FILE_ATTRIBUTE_NORMAL,//</B></FONT><FONT FACE="Courier New" SIZE=2>Оставить атрибуты как есть <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">NULL //</B></FONT><FONT FACE="Courier New" SIZE=2>Не давать имя объекту ядра "Файл"<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">);</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if (hFile == INVALID_HANDLE_VALUE)</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{ //</B></FONT><FONT FACE="Courier New" SIZE=2> Открыть файл не удалось<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MessageBox(&#9;NULL, __TEXT("File could not be opened."),</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"> __TEXT("FileRev"), MB_OK);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return(0);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;<B>}</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>&#9;// Узнаем размер файла. Второй параметр равен </FONT><FONT FACE="Courier New" SIZE=2>NULL,<BR>
+      // </FONT><FONT FACE="Courier New" SIZE=2>так как предполагается,что файл меньше 4 Гб.<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">dwFileSize = GetFileSize(hFile, NULL);</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>&#9;// </FONT><B><FONT FACE="Courier New" SIZE=2>Создаем объект "проецируемый файл".</B> Он - на 1 байт больше, чем<BR>
+&#9;// размер файла, чтобы можно было записать в конец файла нулевой <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>      </FONT><FONT FACE="Courier New" SIZE=2>// символ и работать с файлом как с нуль-терминированной строкой.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>      </FONT><FONT FACE="Courier New" SIZE=2>// Поскольку пока еще неизвестно содержит файл ANSI - или Unicode<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>      </FONT><FONT FACE="Courier New" SIZE=2>// - символы, увеличиваем файл на величину размера символа WCHAR<BR>
+&#9;<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">hFileMap = CreateFileMapping(&#9;</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">hFile, //</B></FONT><FONT FACE="Courier New" SIZE=2> Дескриптор проецирумого объекта "Файл" <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">NULL,  //</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">PAGE_READWRITE, //</B></FONT><FONT FACE="Courier New" SIZE=2> Атрибуты защиты страниц <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">NULL,</B> <B>//</B></FONT><FONT FACE="Courier New" SIZE=2> LPSECURITY_ATTRIBUTES<BR>
+                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">dwFileSize+sizeof(WCHAR), //</B></FONT><FONT FACE="Courier New" SIZE=2>Младшие 32 разряда<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">NULL  //</B></FONT><FONT FACE="Courier New" SIZE=2> и старшие 32 разряда размера файла.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                 </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if (hFileMap == NULL)</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{//</B></FONT><FONT FACE="Courier New" SIZE=2> Открыть объект "проецируемый файл" не удалось<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MessageBox(&#9;NULL, __TEXT("File map could not be opened."),</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">&#9; __TEXT("FileRev"), MB_OK);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;      </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(hFile);//</B></FONT><FONT FACE="Courier New" SIZE=2> Перед выходом закрываем открытые объекты<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return (0);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</FONT><FONT FACE="Courier New" SIZE=2><BR>
+      </B>// </FONT><B><FONT FACE="Courier New" SIZE=2>Открываем отображение файла на </FONT><FONT FACE="Courier New" SIZE=2><BR>
+      // </FONT><FONT FACE="Courier New" SIZE=2>виртуальное адресное пространство</B> и<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>      </FONT><FONT FACE="Courier New" SIZE=2>// получаем адрес, начиная с которого </FONT><FONT FACE="Courier New" SIZE=2><BR>
+      // </FONT><FONT FACE="Courier New" SIZE=2>располагается образ файла в памяти.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2><BR>
+      </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpvFile = MapViewOfFile(</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">hFileMap, //</B></FONT><FONT FACE="Courier New" SIZE=2> Дескриптор объекта "Проецируемый файл" <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">FILE_MAP_WRITE, //</B></FONT><FONT FACE="Courier New" SIZE=2> Режим доступа<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">0, //</B></FONT><FONT FACE="Courier New" SIZE=2> Старшие 32 разряда смещения от начала файла, <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">0, //</B></FONT><FONT FACE="Courier New" SIZE=2> младшие 32 разряда смещения от начала файла<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">0 //</B></FONT><FONT FACE="Courier New" SIZE=2> и количество отображаемых байт. 0 - весь файл.<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">);</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>      </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if (lpvFile == NULL)</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{//</B></FONT><FONT FACE="Courier New" SIZE=2> Спроецировать оконное представление файла не удалось<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">MessageBox(&#9;NULL, __TEXT("Could not map view of tile."),</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">&#9; __TEXT("FileRev"), MB_OK);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle (hFileMap);//</B></FONT><FONT FACE="Courier New" SIZE=2> Перед выходом закрываем </FONT><FONT FACE="Courier New" SIZE=2><BR>
+                                   </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>открытые объекты<BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(hFile);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return(0);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>// Определяем содержит ли файл текст в UNICODE- или ANSI-кодировке.</P>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>fIsTextUnicode = IsTextUnicode(lpvFile,dwFileSize,NULL);</P>
+<P>if( fIsTextUnicode )</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+  </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{ //</B> </FONT><B><FONT FACE="Courier New" SIZE=2>В этом блоке будем использовать UNICODE - функции</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> Записываем в конец файла нулевой символ</FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchUNI = (LPWSTR) lpvFile;</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchUNI[dwFileSize] = 0;</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> "Переворачиваем" содержимое файла наоборот<BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">_wcsrev(lpchUNI);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+   </P>
+<P>    </FONT><FONT FACE="Courier New" SIZE=2>// Преобразуем все комбинации управляющих </FONT><FONT FACE="Courier New" SIZE=2><BR>
+    // </FONT><FONT FACE="Courier New" SIZE=2>символов "\n\r" обратно в "\r\n",</FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><FONT FACE="Courier New" SIZE=2>// чтобы сохранить нормальную последовательность </FONT><FONT FACE="Courier New" SIZE=2><BR>
+    // </FONT><FONT FACE="Courier New" SIZE=2>кодов "возврат каретки" и "перевод строки", </FONT><FONT FACE="Courier New" SIZE=2><BR>
+    // </FONT><FONT FACE="Courier New" SIZE=2>завершающих строки в текстовом файле</P>
+</FONT><FONT FACE="Courier New" SIZE=2><P>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> Находим адрес первого '\n'<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI = wcschr(lpchUNI,(int)'\n');<BR>
+    while (lpchUNI != NULL) <BR>
+</B></FONT><FONT FACE="Courier New" SIZE=2>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{//</B></FONT><FONT FACE="Courier New" SIZE=2>Пока не прочитан 0 в конце файла <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">*lpchUNI++ =(int)'\r';// </B></FONT><FONT FACE="Courier New" SIZE=2>Заменяем '\n' на '\r' и </FONT><FONT FACE="Courier New" SIZE=2><BR>
+      </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>увеличиваем указатель <BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">*lpchUNI++ =(int)'\n';//</B></FONT><FONT FACE="Courier New" SIZE=2>Заменяем '\r' на '\n' и</FONT><FONT FACE="Courier New" SIZE=2><BR>
+                            </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> увеличиваем указатель<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI = wcschr(lpchANSI,(int)'\n');//</B></FONT><FONT FACE="Courier New" SIZE=2> Находим</FONT><FONT FACE="Courier New" SIZE=2><BR>
+                               </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> адрес следующего '\n'<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</P>
+<P>else</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+  </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{ //</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><B><FONT FACE="Courier New" SIZE=2>В данном блоке используем ANSI-функции для работы с текстом</P>
+</FONT><FONT FACE="Courier New" SIZE=2 COLOR="#000080"><P>    //</B></FONT><FONT FACE="Courier New" SIZE=2> Записываем в конец файла нулевой символ<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI = (LPSTR) lpvFile;</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI[dwFileSize] = 0;</P>
+<P>    //</B></FONT><FONT FACE="Courier New" SIZE=2> "Переворачиваем" содержимое файла наоборот<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">_strrev(lpchANSI);<BR>
+</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> Преобразуем все комбинации управляющих </FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>символов "\n\r" обратно в "\r\n",<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> чтобы сохранить нормальную последовательность</FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>кодов "возврат каретки"</FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>и "перевод строки",</FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> завершающих строки в текстовом файле<BR>
+</FONT><FONT FACE="Courier New" SIZE=2><BR>
+    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI = strchr(lpchANSI,(int) '\n'); //</B></FONT><FONT FACE="Courier New" SIZE=2> Находим </FONT><FONT FACE="Courier New" SIZE=2><BR>
+                                            </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">// </B></FONT><FONT FACE="Courier New" SIZE=2>адрес первого '\n'<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>    </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">while (lpchANSI != NULL) </B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{//</B></FONT><FONT FACE="Courier New" SIZE=2>Пока не прочитан 0 в конце файла</FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9; </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">*lpchANSI =(int)"\r"; //</B></FONT><FONT FACE="Courier New" SIZE=2> Заменяем '\n' на '\r'<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>       </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI++; //</B></FONT><FONT FACE="Courier New" SIZE=2> Увеличиваем указатель<BR>
+&#9;</FONT><FONT FACE="Courier New" SIZE=2> </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">*lpchANSI++ =(int)"\n";//</B></FONT><FONT FACE="Courier New" SIZE=2> Заменяем '\r' на '\n' </FONT><FONT FACE="Courier New" SIZE=2><BR>
+                              </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>и увеличиваем указатель<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>&#9; </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">lpchANSI = strchr(lpchANSI,(int)"\n"); //</B></FONT><FONT FACE="Courier New" SIZE=2> Ищем дальше<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>&#9;// </FONT><B><FONT FACE="Courier New" SIZE=2>Очищаем все перед завершением работы</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+      </FONT><FONT FACE="Courier New" SIZE=2>// Закрываем представление файла в окне адресного пространства<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">UnmapViewOfFile(lpvFile);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+      <BR>
+      </FONT><FONT FACE="Courier New" SIZE=2>// Уменьшаем счетчик ссылок на объект ядра "Проецируемый файл"<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(hFileMap);</P>
+</B></FONT><FONT FACE="Courier New" SIZE=2><P>&#9;// Удаляем добавленный ранее концевой нулевой байт.Для этого<BR>
+&#9;// перемещаем указатель файла в конец на нулевой байт,<BR>
+&#9;// а затем даем команду установить в этом месте конец файла</P>
+</FONT><FONT FACE="Courier New" SIZE=2><P>&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">SetFilePointer(hFile, dwFileSize, NULL, FILE_BEGIN);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+      </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">SetEndOfFile(hFile); //</B></FONT><FONT FACE="Courier New" SIZE=2> Эту функцию нужно вызывать после закрытия <BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                           </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> дескриптора объекта ядра "Проецируемый файл"<BR>
+&#9;<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(hFile);  //</B></FONT><FONT FACE="Courier New" SIZE=2> Уменьшаем счетчик ссылок </FONT><FONT FACE="Courier New" SIZE=2><BR>
+                           </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> </FONT><FONT FACE="Courier New" SIZE=2>на объект ядра "Файл"</P>
+</FONT><FONT FACE="Courier New" SIZE=2><P>&#9;// </FONT><B><FONT FACE="Courier New" SIZE=2>Запускаем NOTEPAD и загружаем в него созданный файл</B></FONT><FONT FACE="Courier New" SIZE=2>,<BR>
+      // </FONT><B><FONT FACE="Courier New" SIZE=2>чтобы увидеть плоды своих трудов</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">si.cb = sizeof (si); //</B></FONT><FONT FACE="Courier New" SIZE=2> Заполняем поле размера структуры si<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">si.wShowWindow = SW_SHOW; //</B></FONT><FONT FACE="Courier New" SIZE=2> Задаем режим показа окна NOTEPAD<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">si.dwFlags = STARTF_USESHOWWINDOW; //</B></FONT><FONT FACE="Courier New" SIZE=2> Устанавливаем флаг - учитывать<BR>
+</FONT><FONT FACE="Courier New" SIZE=2>                                         </FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">//</B></FONT><FONT FACE="Courier New" SIZE=2> значение поля wShowWindow<BR>
+&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">if( CreateProcess( NULL, <BR>
+                         __TEXT("NOTEPAD.EXE")FILENAME,</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"> NULL, NULL, FALSE, 0,</B></FONT><FONT FACE="Courier New" SIZE=2> <BR>
+&#9;&#9;&#9;&#9;</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080"> NULL, NULL, &amp;si, &amp;pi) )</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">{</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+// Если процесс создан, освобождаем дескрипторы потока и процесса&#9;<BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(pi.hThread);</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">CloseHandle(pi.hProcess);<BR>
+}</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">return( 0 );</B></FONT><FONT FACE="Courier New" SIZE=2><BR>
+</FONT><B><FONT FACE="Courier New" SIZE=2 COLOR="#000080">}</P></B></FONT></BODY>
+</HTML>

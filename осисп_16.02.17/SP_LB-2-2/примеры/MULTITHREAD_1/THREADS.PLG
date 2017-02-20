@@ -1,0 +1,35 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Threads - Win32 Release--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x409 /fo".\Release/Threads.res" /d "NDEBUG" "M:\OPDP_LB\OPDP_LB2\MULTITHREAD_1\Threads.rc"" 
+Creating temporary file "D:\DOCUME~1\Alan\LOCALS~1\Temp\RSP22.tmp" with contents
+[
+/nologo /ML /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /FR".\Release/" /Fp".\Release/Threads.pch" /YX /Fo".\Release/" /Fd".\Release/" /FD /c 
+"M:\OPDP_LB\OPDP_LB2\MULTITHREAD_1\THREADS.C"
+]
+Creating command line "cl.exe @D:\DOCUME~1\Alan\LOCALS~1\Temp\RSP22.tmp" 
+Creating temporary file "D:\DOCUME~1\Alan\LOCALS~1\Temp\RSP23.tmp" with contents
+[
+kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /incremental:no /pdb:".\Release/Threads.pdb" /machine:I386 /out:".\Release/Threads.exe" 
+.\Release\THREADS.OBJ
+.\Release\Threads.res
+]
+Creating command line "link.exe @D:\DOCUME~1\Alan\LOCALS~1\Temp\RSP23.tmp"
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+THREADS.C
+Linking...
+
+
+
+<h3>Results</h3>
+Threads.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>

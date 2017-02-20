@@ -1,0 +1,175 @@
+#include <windows.h>
+#include <windowsx.h>
+
+#include "resource.h"
+
+BOOL CALLBACK Dlg_Proc (HWND hDlg, UINT uMsg,
+		WPARAM wParam, LPARAM lParam);
+BOOL Dlg_OnlnitDialog (HWND hwnd, HWND hwndFocus,LPARAM lParam);
+void Dlg_OnCommand (HWND hwnd, int id, HWND hwndCtl,UINT codeNotify);
+
+int WINAPI WinMain (HINSTANCE hinstExe.
+HINSTANCE hinstPrev, LPSTR IpszCmdLine, int nCrndShow) {
+
+DialogBox(hinstExe, MAKEINTRESOURCE(IDD_MMFSHARE),
+NULL, Dlg_Proc);
+
+return (0);
+}
+
+BOOL CALLBACK Dlg_Proc (HWND hDlg, UINT uMsg,
+             WPARAM wParam, LPARAM lParam) 
+{
+BOOL fProcessed = TRUE;
+
+ switch (uMsg) {
+
+  HANDLE_MSG(hDlg, WM_INITDIALOG, Dlg_OnInitDialog);
+  HANDLE_MSG(hDlg, WM_COMMAND, Dlg_OnCommand);
+
+  default:
+    fProcessed = FALSE;
+  break;
+  }
+return(fProcessed);
+}
+
+
+
+BOOL Dlg_OnlnitDialog (HWND hwnd, HWND hwndFocus,
+LPARAM lParam) {
+
+// Связываем значок с диалоговым окном
+SetClassLong(hwnd, GCL_HICON, (LONG)
+
+  Loadlcon((HINSTANCE) GetWindowLong(hwnd, GWL_HINSTANCE),
+  __TEXT("MMFShare"))),
+
+  // Инициализируем поле ввода тестовыми данными 
+  Edit_SetText(GetDlgItem(hwnd, IDC_DATA),
+
+  __TEXT( "Some test data"));
+
+// Отключаем кнопку Close, т.к. файл нельзя закрыть,
+// если он не создан или не открыт
+
+Button_Enable(GetDlgltem(hwnd, IDC_CLOSEFILE), FALSE):
+return (TRUE);
+}
+
+void Dlg_OnCommand (HWND hwnd, int id, HWND hwndCtl,
+UINT codeNotify) {
+
+ // Описатель открытого проецируемого в память файла
+static 
+HANDLE s_hFileMap = NULL;
+HANDLE hFileMapT;
+
+switch (id) {
+	case IDC_CREATEFILE;
+	if (codeNotify != BN_CLICKED)
+	break;
+
+	// Создаем в памяти проецируемый файл, содержащий
+	// данные, набранные в поле ввода. Файл занимает 4 Кб
+	// и называется MMFSharedData.
+
+	s_hFileMap = CreateFileMapping( (HANDLE) 0xFFFFFFFF,
+	NULL, PAGE_READWRITE, 0, 4 * 1024,
+	__TEXT( "MMFSharedData" ) );
+
+	if (s_hFileMap != NULL) {
+
+	if (GetLastErrorO == ERROR_ALREADY_EXISTS) {
+ 		MessageBox(hwnd,__TEXT("Mapping already exists - ")
+	           __TEXT("not created."),NULL, MB_OK);
+        	CloseHandle(s_hFileMap);
+
+        	} 
+	else 
+		{
+
+	// Создание проецируемого файла завершилось успешно
+	// Проецируем оконное представление файла
+	// на адресное пространство
+	LPVOID lpView = MapViewOfFile(s_hFileMap,
+	FILE_MAP_READ | FILE_MAP_WRITE, 0, 0, 0);
+
+	if ((BYTE *) lpView != NULL) {
+		// Окно спроецировано успешно: поместим содержимое
+		// элемента управления EDIT в проецируемый файл
+		Edit_GetText(GetDlgItem(hwnd, IDC_DATA),
+			(LPTSTR) lpView, 4 • 1024);
+		// Прекращаем проецирование окна. 
+		UnmapViewOfFile( (LPVOID) lpView);
+		// Пользователь не может создать сейчас
+		// еще один файл
+		Button_Enable(hwndCtl, FALSE);
+
+		// Пользователь закрыл файл
+		Button_Enable(GetDlgItem(hwnd,IDC_CLOSEFILE), TRUE);
+	
+		} 
+	else 	{
+		MessageBox(hwnd,__TEXT ("Can't map view of file. "),
+				NULL, MB_OK),
+		}
+		}
+
+	} else {
+		MessageBox(hwnd,__TEXT("Can't create file mapping."),
+			NULL, MB_OK);
+	}
+	break;
+
+	case IDC_CLOSEFILE:
+		if (codeNofify != BN_CLICKED)	break;
+		if (CloseHandle(s_hFileMap)) {
+
+		// Пользователь закрыл файл.  Новый файл создать можно,
+		// но закрыть его нельзя.
+		Button_Enable(GetDlgItem(hwnd, IDC_CREATEFILE),
+		TRUE);
+
+		Button_Enable(hwndCtl, FALSE);
+		}
+		break;
+
+	case IDC_OPENFILE:
+		if (codeNotify != BN_CLICKED)
+			break;
+		// Смотрим: не существует ли уже проецируемый в память файл
+		// с именем MMFSharedDafa
+		nFileMapT = OpenFileMapping(
+			FILE_MAP_READ | FILE_MAP_WRITE,
+			FALSE, __TEXT( "MMFSharedDafa"));
+		if (hFileMapT != NULL) {
+		// Такой файл существует. Проецируем его оконное
+		// представление на адресное пространство процесса.
+		LPVOID lpView = MapViewOfFile(hFileMapT,
+			FILE_MAP_READ | FILE_MAP_WRITE, 0,0,0);
+
+		if ((BYTE *) lpView != NULL) {
+		// Помещаем содержимое файла в поле ввода
+		// (элемент управления EDIT)
+		Edit_SetText(GetDlgItem(hwnd, IDC_DATA),
+		(LPTSTR) lpView);
+		UnmapViewOfFile((LPVOID) lpView);
+		} else {
+			MessageBox(hwnd,
+			__TEXT("Can't map view."), NULL, MB_OK);
+			}
+
+		CloseHandle(hFileMapT);
+		} else {
+			MessageBox(hwnd,
+			__TEXT("Can't open mapping."), NULL, MB_OK);
+			}
+		break;
+
+		case IDCANCEL:
+			EndDialog(hwnd, id);
+			break;
+	}
+}
+
