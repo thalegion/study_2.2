@@ -897,7 +897,246 @@
 			Parent_View 	@24
 			location   	(453, 891)
 			line_color 	3342489
-			fill_color 	13434879)))))
+			fill_color 	13434879)))
+	    (object ObjectDiagram "Sequency"
+		mechanism_ref 	@23
+		quid       	"58ADCB000352"
+		title      	"Sequency"
+		zoom       	100
+		max_height 	28350
+		max_width  	21600
+		origin_x   	0
+		origin_y   	0
+		items      	(list diagram_item_list
+		    (object ObjectView "$UNNAMED$12" @41
+			location   	(242, 762)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@41
+			    location   	(242, 922)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	331
+			    justify    	0
+			    label      	"")
+			icon       	"Actor"
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"58ADC6DA01E5"
+			annotation 	4
+			autoResize 	TRUE
+			subobjects 	0
+			x_offset   	0.000000
+			y_offset   	0.000000)
+		    (object ObjectView "$UNNAMED$13" @42
+			location   	(1704, 756)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			label      	(object ItemLabel
+			    Parent_View 	@42
+			    location   	(1704, 916)
+			    anchor_loc 	1
+			    nlines     	2
+			    max_width  	331
+			    justify    	0
+			    label      	"")
+			icon       	"Actor"
+			icon_style 	"Icon"
+			line_color 	3342489
+			fill_color 	13434879
+			quidu      	"58ADC6EE011F"
+			annotation 	4
+			autoResize 	TRUE
+			subobjects 	0
+			x_offset   	0.000000
+			y_offset   	0.000000)
+		    (object LinkSelfView "" @43
+			location   	(1704, 521)
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"58ADC7710046"
+			client     	@42
+			supplier   	@42
+			vertices   	(list Points
+			    (1649, 676)
+			    (1753, 676))
+			line_style 	4)
+		    (object MessView "" @44
+			location   	(1704, 477)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			line_color 	3342489
+			label      	(object SegLabel @45
+			    Parent_View 	@44
+			    location   	(1704, 386)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"58ADC7710047"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	860
+			    justify    	0
+			    label      	"Определить тип изделия для изготовления"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			label      	(object SegLabel @46
+			    Parent_View 	@44
+			    location   	(1704, 433)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"58ADC7F700A1"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"Изготовить изделие"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			object_arc 	@43
+			pctDist    	0.500000
+			height     	45
+			orientation 	0
+			dir        	1
+			origin     	(1644, 477)
+			terminus   	(1764, 477))
+		    (object LinkView "" @47
+			stereotype 	TRUE
+			line_color 	3342489
+			quidu      	"58ADC74402B7"
+			client     	@41
+			supplier   	@42
+			vertices   	(list Points
+			    (299, 758)
+			    (1643, 756))
+			line_style 	0)
+		    (object MessView "" @48
+			location   	(971, 713)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			line_color 	3342489
+			label      	(object SegLabel @49
+			    Parent_View 	@48
+			    location   	(971, 669)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"58ADC74402B8"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	450
+			    justify    	0
+			    label      	"Заказать изделие"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			object_arc 	@47
+			pctDist    	0.500000
+			height     	45
+			orientation 	0
+			dir        	1
+			origin     	(911, 713)
+			terminus   	(1031, 713))
+		    (object MessView "" @50
+			location   	(971, 802)
+			font       	(object Font
+			    size       	10
+			    face       	"Arial"
+			    charSet    	204
+			    bold       	FALSE
+			    italics    	FALSE
+			    underline  	FALSE
+			    strike     	FALSE
+			    color      	0
+			    default_color 	TRUE)
+			line_color 	3342489
+			label      	(object SegLabel @51
+			    Parent_View 	@50
+			    location   	(971, 847)
+			    font       	(object Font
+				size       	10
+				face       	"Arial"
+				charSet    	204
+				bold       	FALSE
+				italics    	FALSE
+				underline  	FALSE
+				strike     	FALSE
+				color      	0
+				default_color 	TRUE)
+			    quidu      	"58ADC9E90268"
+			    anchor_loc 	1
+			    nlines     	1
+			    max_width  	566
+			    justify    	0
+			    label      	"Доставить изделие клиенту"
+			    pctDist    	0.500000
+			    height     	45
+			    orientation 	0)
+			object_arc 	@47
+			pctDist    	0.500000
+			height     	45
+			orientation 	1
+			dir        	-1
+			origin     	(1030, 802)
+			terminus   	(912, 802))))))
     root_subsystem 	(object SubSystem "Component View"
 	quid       	"58ADB7E20174"
 	physical_models 	(list unit_reference_list)
